@@ -1,1 +1,1 @@
-FROM verdaccio/verdaccio:latest
+FROM node:22
