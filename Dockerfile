@@ -1,1 +1,1 @@
-FROM verdaccio/verdaccio:6.1
+FROM verdaccio/verdaccio:latest
