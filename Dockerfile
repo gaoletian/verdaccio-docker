@@ -47,6 +47,10 @@ RUN curl -fsSL https://github.com/coder/code-server/releases/download/v4.101.2/c
     && rm -rf code-server-4.101.2-linux-amd64.tar.gz code-server-4.101.2-linux-amd64
 
 
+RUN DEBIAN_FRONTEND="noninteractive" apt-get update -y \
+    && apt-get install --yes \
+    git  
+
 # 添加用户 coder
 RUN groupadd --gid 1001 coder \
   && useradd --uid 1001 --gid coder --shell /bin/zsh --create-home coder \
