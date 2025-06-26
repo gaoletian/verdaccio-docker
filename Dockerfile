@@ -1,4 +1,4 @@
-FROM debian
+FROM node:22
 
 # 解决中文乱码
 ENV LANG=C.UTF-8
@@ -25,9 +25,9 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get update -y \
 
 
 # 安装 多版本 node lts 14 16
-RUN curl -fsSL -o /usr/local/bin/n https://raw.githubusercontent.com/tj/n/master/bin/n \
-    && chmod 0755 /usr/local/bin/n \
-    && n install 22
+# RUN curl -fsSL -o /usr/local/bin/n https://raw.githubusercontent.com/tj/n/master/bin/n \
+#     && chmod 0755 /usr/local/bin/n \
+#     && n install 22
 
 # 安装 code-server
 # RUN npm install -g npm@^8
@@ -43,8 +43,11 @@ RUN curl -fsSL -o /usr/local/bin/n https://raw.githubusercontent.com/tj/n/master
 RUN curl -fsSL https://github.com/coder/code-server/releases/download/v4.101.2/code-server-4.101.2-linux-amd64.tar.gz -o code-server-4.101.2-linux-amd64.tar.gz \
     && tar -xzf code-server-4.101.2-linux-amd64.tar.gz \
     && mv code-server-4.101.2-linux-amd64 /usr/local/code-server \
-    && ln -f /usr/local/code-server/bin/code-server /usr/local/bin/code-server \
+    && ln -s /usr/local/code-server/bin/code-server /usr/local/bin/code-server \
     && rm -rf code-server-4.101.2-linux-amd64.tar.gz code-server-4.101.2-linux-amd64
+
+
+RUN chmod +x /usr/local/code-server/bin/code-server
 
 
 RUN DEBIAN_FRONTEND="noninteractive" apt-get update -y \
@@ -70,8 +73,7 @@ WORKDIR /home/coder
 # RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # 安装 vscode 插件
-RUN code-server --install-extension TabNine.tabnine-vscode \
-    && code-server --install-extension esbenp.prettier-vscode \
+RUN code-server --install-extension esbenp.prettier-vscode \
     && code-server --install-extension eamodio.gitlens  \
     && code-server --install-extension donjayamanne.githistory \
     && code-server --install-extension yzhang.markdown-all-in-one \
