@@ -67,7 +67,7 @@ USER coder
 WORKDIR /home/coder
 
 # 安装 ohmyzsh
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # 安装 vscode 插件
 RUN code-server --install-extension TabNine.tabnine-vscode \
